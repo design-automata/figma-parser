@@ -5,7 +5,7 @@ module.exports = {
       {
         "alias": {
           "@design-automata/node-figma": "./src/submodules/@design-automata/node-figma/src",
-          "@design-automata/colou-utils": "./src/submodules/@design-automata/colour-utils/src"
+          "@design-automata/colour-utils": "./src/submodules/@design-automata/colour-utils/src"
         }
       }
     ]
