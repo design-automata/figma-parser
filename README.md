@@ -4,9 +4,10 @@ Parse design tokens from Figma
 
 ## Getting started
 
-Grab dependencies
+Grab dependencies and submodules
 ```sh
 npm i
+git pull --recurse-submodules
 ```
 
 Update `src/config.ts` with your file key.
