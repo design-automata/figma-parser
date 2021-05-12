@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@design-automata/node-figma": ["./src/submodules/@design-automata/node-figma/src"],
+      "@design-automata/colou-utils": ["./src/submodules/@design-automata/colour-utils/src"]
+    }
+  }
+}

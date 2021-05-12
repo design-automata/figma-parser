@@ -1,0 +1,6 @@
+[submodule "src/submodules/@design-automata/node-figma"]
+	path = src/submodules/@design-automata/node-figma
+	url = https://github.com/design-automata/node-figma.git
+[submodule "src/submodules/@design-automata/colour-utils"]
+	path = src/submodules/@design-automata/colour-utils
+	url = https://github.com/design-automata/colour-utils.git
