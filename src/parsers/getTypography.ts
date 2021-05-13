@@ -1,16 +1,13 @@
 import { LIB_31 } from '../config'
-import { getFileNodes, getFileStyles } from '@design-automata/node-figma'
+import { getFileNodes } from '@design-automata/node-figma'
 const ROOT_FONT_SIZE = 16;
 
-export const getTypography = async () => {
+export const getTypography = async (fileStyles) => {
+  const textStyles = fileStyles.filter(style => style.style_type === 'TEXT');
+  const textStyleNodes = textStyles.map(style => style.node_id);
   let parsed = {};
-  const nodeIds = await getFileStyles(LIB_31)
-  .then((data: any) => {
-    const textStyles = data.meta.styles.filter(style => style.style_type === 'TEXT');
-    return textStyles.map(style => style.node_id);
-  })
-
-  parsed = await getFileNodes(LIB_31, nodeIds)
+  
+  parsed = await getFileNodes(LIB_31, textStyleNodes)
   .then((data: any) => {
     const docArr = Object.values(data.nodes).map((node: any) => node.document);
     let typography = {};

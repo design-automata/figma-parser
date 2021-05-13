@@ -1,21 +1,28 @@
-import { TOKEN_LIB } from '../config'
-import { getFile } from '@design-automata/node-figma'
+import { LIB_31 } from '../config'
+import { getFileNodes } from '@design-automata/node-figma'
 import { RGBAto255 } from '@design-automata/colour-utils'
 
-export const getElevation = async () => {
+export const getElevation = async (fileStyles) => {
+  const elevationStyles = fileStyles.filter(style => style.style_type === 'EFFECT' && style.name.toLowerCase().includes('elevation'));
+  const elevationStyleNodes = elevationStyles.map(style => style.node_id).join(",");
   let parsed = {};
-  parsed = await getFile(TOKEN_LIB, { depth: 3 })
+  
+  parsed = await getFileNodes(LIB_31, elevationStyleNodes)
   .then((data: any) => {
-    let elevationPage = data.document.children.find(child => child.name === 'elevation' && child.type === 'CANVAS');
-
+    const docArr = Object.values(data.nodes).map((node: any) => node.document);
     let elevation = {};
     let elevationCSS = {};
-    elevationPage.children.forEach(element => {
-      elevation[element.name] = element.effects;
-    });
+
+    docArr.forEach(doc => {
+      // "Elevation 1" -> "elevation-1"
+      const effectName = doc.name.split(" ").join("-").toLowerCase();
+      elevation[effectName] = doc.effects;
+    })
+
     for (const key in elevation) {
       elevationCSS[key] = effectsToCSS(elevation[key]);
     }
+
     return elevationCSS;
   })
 
