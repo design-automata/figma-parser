@@ -24,6 +24,6 @@ export const getElevation = async () => {
 
 function effectsToCSS(effectsArr) {
   let reversedEffectsArr = effectsArr.reverse();
-  let CSSString = reversedEffectsArr.map(({ color, offset, radius, spread}) => `${offset.x}px ${offset.y}px ${radius ? radius : '0'}px ${spread ? spread : '0'}px ${RGBAto255(color)}`);
+  let CSSString = reversedEffectsArr.map(({ color, offset, radius, spread }) => `${offset.x}px ${offset.y}px ${radius ? radius : '0'}px ${spread ? spread : '0'}px ${RGBAto255(color)}`);
   return CSSString.join(", ");
 }
