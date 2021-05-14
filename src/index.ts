@@ -1,25 +1,28 @@
 import "regenerator-runtime/runtime"
 import * as fs from 'fs'
 import { LIB_31 } from './config'
-import { getColours, getTypography, getElevation, getGrid } from './parsers'
+import { getColours, getTypography, getElevation, getGrid, getSpacing } from './parsers'
 import { getFileStyles } from "@design-automata/node-figma"
 
 const getTokens = async () => {
   // get all styles
-  let fileStyles = await getFileStyles(LIB_31).then((data: any) => data.meta.styles);
+  const fileStyles = await getFileStyles(LIB_31).then((data: any) => data.meta.styles);
 
-  let colours = await getColours();
-  let typography = await getTypography(fileStyles);
-  let elevation = await getElevation(fileStyles);
-  let grid = await getGrid(fileStyles);
+  const tokens = {
+    colours: await getColours(),
+    typography: await getTypography(fileStyles),
+    elevation: await getElevation(fileStyles),
+    grid: await getGrid(fileStyles),
+    spacing: await getSpacing()
+  }
 
-  fs.writeFile(`${process.cwd()}/tokens/colours.json`, JSON.stringify(colours, null, '\t'), err => console.log(err));
+  // individual files
+  for (const key in tokens) {
+    fs.writeFile(`${process.cwd()}/tokens/${key}.json`, JSON.stringify(tokens[key], null, '\t'), err => console.log(err));
+  }
 
-  fs.writeFile(`${process.cwd()}/tokens/typography.json`, JSON.stringify(typography, null, '\t'), err => console.log(err));
-
-  fs.writeFile(`${process.cwd()}/tokens/elevation.json`, JSON.stringify(elevation, null, '\t'), err => console.log(err));
-
-  fs.writeFile(`${process.cwd()}/tokens/grid.json`, JSON.stringify(grid, null, '\t'), err => console.log(err));
+  // all
+  fs.writeFile(`${process.cwd()}/tokens/all.json`, JSON.stringify(tokens, null, '\t'), err => console.log(err));
 }
 
 if (!fs.existsSync(`${process.cwd()}/tokens`)){
