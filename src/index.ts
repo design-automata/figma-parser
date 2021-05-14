@@ -8,7 +8,7 @@ const getTokens = async () => {
   // get all styles
   const fileStyles = await getFileStyles(LIB_31).then((data: any) => data.meta.styles);
 
-  const tokens = {
+  let tokens = {
     colours: await getColours(),
     typography: await getTypography(fileStyles),
     elevation: await getElevation(fileStyles),
@@ -16,17 +16,37 @@ const getTokens = async () => {
     spacing: await getSpacing()
   }
 
+  let renamedTokens = rename(tokens);
+
   // individual files
-  for (const key in tokens) {
-    fs.writeFile(`${process.cwd()}/tokens/${key}.json`, JSON.stringify(tokens[key], null, '\t'), err => console.log(err));
+  for (const key in renamedTokens) {
+    fs.writeFile(`${process.cwd()}/tokens/${key}.json`, JSON.stringify(tokens[key], null, '\t'), err => {
+      if (err) throw err;
+    });
   }
 
   // all
-  fs.writeFile(`${process.cwd()}/tokens/all.json`, JSON.stringify(tokens, null, '\t'), err => console.log(err));
+  fs.writeFile(`${process.cwd()}/tokens/all.json`, JSON.stringify(renamedTokens, null, '\t'), err => {
+    if (err) throw err;
+  });
 }
 
 if (!fs.existsSync(`${process.cwd()}/tokens`)){
   fs.mkdirSync(`${process.cwd()}/tokens`);
+}
+
+function rename(ref) {
+  const renamed = {};
+  for (const key in ref) {
+    let node = ref[key];
+    let newKey = key.replace(/[-\s]/g, "_").toLowerCase();
+    if (typeof node === 'object') {
+      node = rename(node);
+    }
+
+    renamed[newKey] = node;
+  }
+  return renamed;
 }
 
 getTokens();

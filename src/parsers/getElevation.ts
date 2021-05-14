@@ -1,4 +1,4 @@
-import { LIB_31 } from '../config'
+import { LIB_31, PROP_REGEX } from '../config'
 import { getFileNodes } from '@design-automata/node-figma'
 import { RGBAto255 } from '@design-automata/colour-utils'
 
@@ -14,9 +14,7 @@ export const getElevation = async (fileStyles) => {
     let elevationCSS = {};
 
     docArr.forEach(doc => {
-      // "Elevation 1" -> "elevation-1"
-      const effectName = doc.name.split(" ").join("-").toLowerCase();
-      elevation[effectName] = doc.effects;
+      elevation[doc.name] = doc.effects;
     })
 
     for (const key in elevation) {

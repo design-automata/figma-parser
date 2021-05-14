@@ -1,4 +1,4 @@
-import { TOKEN_LIB } from '../config'
+import { TOKEN_LIB, PROP_REGEX } from '../config'
 import { getFile } from '@design-automata/node-figma'
 import { RGBAto255, RGBAtoHEX, RGBAtoHSLA } from '@design-automata/colour-utils'
 

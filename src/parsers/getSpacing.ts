@@ -1,4 +1,4 @@
-import { LIB_31 } from '../config'
+import { LIB_31, PROP_REGEX } from '../config'
 import { getFile } from '@design-automata/node-figma'
 
 export const getSpacing = async () => {
@@ -9,10 +9,10 @@ export const getSpacing = async () => {
     const spacingFrame = spacingPage.children.find(child => child.name === 'Spacing Tokens')
     const spacingLayers = spacingFrame.children.filter(child => child.name.includes("space"));
     const spacing = {};
-    spacingLayers.forEach(layer => {
-      spacing[layer.name] = {
-        value: parseInt(layer.name.split("-")[1]),
-        valuePx: `${layer.name.split("-")[1]}px`
+    spacingLayers.forEach(({ name }) => {
+      spacing[name] = {
+        value: parseInt(name.split("-")[1]),
+        valuePx: `${name.split("-")[1]}px`
       }
     })
     return spacing;

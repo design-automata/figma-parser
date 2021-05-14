@@ -1,4 +1,4 @@
-import { LIB_31 } from '../config'
+import { LIB_31, PROP_REGEX } from '../config'
 import { getFileNodes } from '@design-automata/node-figma'
 const ROOT_FONT_SIZE = 16;
 
