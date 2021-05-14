@@ -36,7 +36,7 @@ function CSS(ref) {
     let node = ref[key];
     if (node.r !== undefined) {
       node.rgba = RGBAto255(node);
-      node.hex = RGBAtoHEX(node);
+      node.hex = RGBAtoHEX(node).slice(0, 7); // remove alpha portion
       node.hsla = RGBAtoHSLA(node);
       delete node.r;
       delete node.g;
