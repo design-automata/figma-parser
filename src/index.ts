@@ -20,7 +20,7 @@ const getTokens = async () => {
 
   // individual files
   for (const key in renamedTokens) {
-    fs.writeFile(`${process.cwd()}/tokens/${key}.json`, JSON.stringify(tokens[key], null, '\t'), err => {
+    fs.writeFile(`${process.cwd()}/tokens/${key}.json`, JSON.stringify(renamedTokens[key], null, '\t'), err => {
       if (err) throw err;
     });
   }
