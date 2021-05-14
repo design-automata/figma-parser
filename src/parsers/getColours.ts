@@ -46,7 +46,7 @@ function CSS(ref) {
       // special case for gradients
       ref[key] = {};
       ref[key].rgba = `135deg, ${RGBAto255(node[0].color)} 0%, ${RGBAto255(node[1].color)} 100%`;
-      ref[key].hex = `135deg, ${RGBAtoHEX(node[0].color)} 0%, ${RGBAtoHEX(node[1].color)} 100%`;
+      ref[key].hex = `135deg, ${RGBAtoHEX(node[0].color).slice(0, 7)} 0%, ${RGBAtoHEX(node[1].color)} 100%`;
       ref[key].hsla = `135deg, ${RGBAtoHSLA(node[0].color)} 0%, ${RGBAtoHSLA(node[1].color)} 100%`;
     } else {
       CSS(node);
